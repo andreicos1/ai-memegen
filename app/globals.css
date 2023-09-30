@@ -17,6 +17,10 @@ body {
   background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
+.text-danger {
+  color: red;
+}
+
 /* SWIPER */
 .swiper {
   height: 7rem;
@@ -45,6 +49,53 @@ body {
 }
 /* END SWIPER */
 
-.text-danger {
-  color: red;
+/* LOADING ANIMATION */
+
+.progress {
+  margin: 0 auto;
+  height: 15px;
+  max-width: 540px;
+  background-color: #bbb;
+  width: 100%;
+}
+
+.progress-inner {
+  display: block !important;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  transform-origin: left;
+  animation: none;
+}
+
+.progress-inner--active {
+  animation: animate-outer 15s linear forwards;
+}
+
+.progress-inner::before,
+.progress-inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #fb0094, #0000ff, #00ff00, #ffff00, #fb0094, #0000ff, #00ff00, #ffff00, #fb0094);
+  animation: animate-inner 15s linear infinite;
+  background-size: 500%;
+}
+
+@keyframes animate-outer {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes animate-inner {
+  0% {
+    background-position: 0 0;
+  }
+  0% {
+    background-position: 500% 0;
+  }
 }

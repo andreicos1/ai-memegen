@@ -68,7 +68,13 @@ const memeImages = [
     name: "Woman Yelling At Cat",
   },
 ]
-function MemeSwiper() {
+
+interface Props {
+  onSelectMeme: (memeImage: any) => void
+  selectedMeme: any
+}
+
+function MemeSwiper({ onSelectMeme, selectedMeme }: Props) {
   return (
     <div className="max-w-7xl w-full p-6">
       <Swiper
@@ -92,11 +98,18 @@ function MemeSwiper() {
           },
         }}
       >
-        {memeImages.map((memeImage) => (
-          <SwiperSlide key={memeImage.id}>
-            <Image alt={memeImage.name} className="object-cover cursor-pointer" src={memeImage.originalImage} fill />
-          </SwiperSlide>
-        ))}
+        {memeImages.map((memeImage) => {
+          return (
+            <SwiperSlide
+              key={memeImage.id}
+              onClick={() => onSelectMeme(memeImage)}
+              className={selectedMeme?.id === memeImage.id ? "border-1 border-white" : ""}
+            >
+              {selectedMeme?.id === memeImage.id && <p className="absolute -top-[1.75rem]">{memeImage.name}</p>}
+              <Image alt={memeImage.name} className="object-cover cursor-pointer" src={memeImage.originalImage} fill />
+            </SwiperSlide>
+          )
+        })}
       </Swiper>
     </div>
   )

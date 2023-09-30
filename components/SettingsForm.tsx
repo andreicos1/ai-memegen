@@ -10,16 +10,16 @@ interface SettingsFormInput {
   steps: number
 }
 
-function SettingsForm() {
+interface Props {
+  onSubmit: (data: any) => void
+}
+
+function SettingsForm({ onSubmit }: Props) {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
-
-  const onSubmit = (data: any) => {
-    console.log(data)
-  }
 
   return (
     <form className="pt-8 lg:pt-14 max-w-2xl w-full px-6" onSubmit={handleSubmit(onSubmit)}>
@@ -36,7 +36,7 @@ function SettingsForm() {
         }}
         {...register("prompt", { required: true })}
       />
-      <Button type="submit" radius="full" className="bg-primary shadow-lg rounded-full px-4 py-2 mt-4">
+      <Button type="submit" radius="full" className="bg-primary shadow-lg rounded-full px-5 py-3 mt-3 leading-none">
         Generate Image
       </Button>
     </form>
