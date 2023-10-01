@@ -15,6 +15,8 @@ export const POST = async (request: NextRequest) => {
         prompt,
         qr_code_content: "",
         image: `${origin}/${image}`,
+        num_inference_steps: 50,
+        controlnet_conditioning_scale: 1.8,
       },
     })
     return NextResponse.json({ output }, { status: 200 })
@@ -22,3 +24,5 @@ export const POST = async (request: NextRequest) => {
     return NextResponse.json({ error }, { status: 500 })
   }
 }
+
+export const runtime = "edge"
