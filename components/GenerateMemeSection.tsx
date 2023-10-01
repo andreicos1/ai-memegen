@@ -36,7 +36,7 @@ function GenerateMemeSection() {
       )}
       <SettingsForm onSubmit={onSubmit} />
       {isLoading && <LoadingBar />}
-      {outputImage && <img className="mt-6 lg:mt-10" src={outputImage} alt="output" />}
+      {outputImage && <img className="mt-6 lg:mt-10 px-6" src={outputImage} alt="output" />}
     </>
   )
 }

@@ -11,61 +11,73 @@ const memeImages = [
     id: 1,
     originalImage: "/memes/BuffDogevsCheems.png",
     name: "Buff Doge vs Cheems",
+    grayscaleImage: "memes-grayscale/BuffDogevsCheems.png",
   },
   {
     id: 2,
     originalImage: "/memes/ChangeMyMind.png",
     name: "Change My Mind",
+    grayscaleImage: "memes-grayscale/ChangeMyMind.png",
   },
   {
     id: 3,
     originalImage: "/memes/DistractedBoyfriend.png",
     name: "Distracted Boyfriend",
+    grayscaleImage: "memes-grayscale/DistractedBoyfriend.png",
   },
   {
     id: 4,
     originalImage: "/memes/DrakeHotlineBling.png",
     name: "Drake Hotline Bling",
+    grayscaleImage: "memes-grayscale/DrakeHotlineBling.png",
   },
   {
     id: 5,
     originalImage: "/memes/EpicHandshake.png",
     name: "Epic Handshake",
+    grayscaleImage: "memes-grayscale/EpicHandshake.png",
   },
   {
     id: 6,
     originalImage: "/memes/LeftExit12OffRamp.png",
     name: "Left Exit 12 Off Ramp",
+    grayscaleImage: "memes-grayscale/LeftExit12OffRamp.png",
   },
   {
     id: 7,
     originalImage: "/memes/RunningAwayBalloon.png",
     name: "Running Away Balloon",
+    grayscaleImage: "memes-grayscale/RunningAwayBalloon.png",
   },
   {
     id: 8,
     originalImage: "/memes/SurprisedPikachu.png",
     name: "Surprised Pikachu",
+    grayscaleImage: "memes-grayscale/SurprisedPikachu.png",
   },
   {
     id: 9,
     originalImage: "/memes/TwoButtons.png",
     name: "Two Buttons",
+    grayscaleImage: "memes-grayscale/TwoButtons.png",
   },
   {
     id: 10,
     originalImage: "/memes/UnoDraw25Cards.png",
     name: "Uno Draw 25 Cards",
+    grayscaleImage: "memes-grayscale/UnoDraw25Cards.png",
   },
   {
     id: 11,
     originalImage: "/memes/WaitingSkeleon.png",
     name: "Waiting Skeleton",
+    grayscaleImage: "memes-grayscale/WaitingSkeleon.png",
   },
   {
     id: 12,
     originalImage: "/memes/WomanYellingAtCat.png",
     name: "Woman Yelling At Cat",
+    grayscaleImage: "memes-grayscale/WomanYellingAtCat.png",
   },
 ]
 
