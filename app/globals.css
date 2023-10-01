@@ -37,6 +37,10 @@ body {
   display: none !important;
 }
 
+.swiper:not(.swiper-initialized) {
+  visibility: hidden;
+}
+
 @media screen and (min-width: 768px) {
   .swiper {
     height: 9rem;

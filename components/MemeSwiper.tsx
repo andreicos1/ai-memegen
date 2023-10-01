@@ -100,7 +100,13 @@ function MemeSwiper({ onSelectMeme, selectedMeme }: Props) {
               className={selectedMeme?.id === memeImage.id ? "border-1 border-white" : ""}
             >
               {selectedMeme?.id === memeImage.id && <p className="absolute -top-[1.75rem]">{memeImage.name}</p>}
-              <Image alt={memeImage.name} className="object-cover cursor-pointer" src={memeImage.originalImage} fill />
+              <Image
+                loading="eager"
+                alt={memeImage.name}
+                className="object-cover cursor-pointer"
+                src={memeImage.originalImage}
+                fill
+              />
             </SwiperSlide>
           )
         })}
