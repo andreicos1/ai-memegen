@@ -10,8 +10,6 @@ export const POST = async (request: NextRequest) => {
     const { image, prompt } = await request.json()
     const origin = process.env.IS_PROD !== "false" ? request.headers.get("origin") : "https://ai-memegen.vercel.app"
 
-    console.log(`${origin}/${image}`)
-
     const output = await replicate.run(MODEL, {
       input: {
         prompt,
@@ -24,5 +22,3 @@ export const POST = async (request: NextRequest) => {
     return NextResponse.json({ error }, { status: 500 })
   }
 }
-
-export const runtime = "edge"
