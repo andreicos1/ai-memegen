@@ -6,7 +6,7 @@ import MemeSwiper from "./MemeSwiper"
 import SettingsForm from "./SettingsForm"
 
 function GenerateMemeSection() {
-  const [selectedMeme, setSelectedMeme] = useState(null)
+  const [selectedMeme, setSelectedMeme] = useState<any>(null)
   const [noMemeSelectedError, setNoMemeSelectedError] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [outputImage, setOutputImage] = useState("")
@@ -16,14 +16,20 @@ function GenerateMemeSection() {
     setNoMemeSelectedError(false)
   }
 
-  const onSubmit = (data: any) => {
+  const onSubmit = async (values: any) => {
     if (!selectedMeme) {
       setNoMemeSelectedError(true)
       return
     }
-    setOutputImage("https://picsum.photos/500/500")
-    console.log(selectedMeme)
-    console.log(data)
+    setIsLoading(true)
+    const response = await fetch("/api/generateMeme", {
+      method: "POST",
+      body: JSON.stringify({ image: selectedMeme.grayscaleImage, ...values }),
+      headers: { "Content-Type": "application/json" },
+    })
+    const data = await response.json()
+    setOutputImage(data.output[0])
+    setIsLoading(false)
   }
 
   return (

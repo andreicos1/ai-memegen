@@ -10,12 +10,14 @@
   },
   "dependencies": {
     "@nextui-org/react": "^2.1.13",
+    "buffer": "^6.0.3",
     "eslint-plugin-tailwindcss": "^3.13.0",
     "framer-motion": "^10.16.4",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
     "react-hook-form": "^7.46.2",
+    "replicate": "^0.18.1",
     "swiper": "^10.3.1"
   },
   "devDependencies": {

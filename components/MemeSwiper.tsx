@@ -79,6 +79,12 @@ const memeImages = [
     name: "Woman Yelling At Cat",
     grayscaleImage: "memes-grayscale/WomanYellingAtCat.png",
   },
+  {
+    id: 13,
+    originalImage: "/memes/ShiddingToothpaste.png",
+    name: "Shidding Toothpaste",
+    grayscaleImage: "memes-grayscale/ShiddingToothpaste.png",
+  },
 ]
 
 interface Props {
