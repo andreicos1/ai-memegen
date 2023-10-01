@@ -50,7 +50,6 @@ const saveIp = async (ip: string) => {
 }
 
 export const checkLimitReached = async (request: NextRequest) => {
-  console.log("Connecting to MongoDB...")
   await connectMongoDB()
 
   const ip = getIp(request)

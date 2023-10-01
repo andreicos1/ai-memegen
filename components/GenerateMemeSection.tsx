@@ -1,5 +1,6 @@
 "use client"
 
+import { sleep } from "@/app/utils/others"
 import { useState } from "react"
 import LoadingBar from "./LoadingBar"
 import MemeSwiper from "./MemeSwiper"
@@ -22,14 +23,42 @@ function GenerateMemeSection() {
       return
     }
     setIsLoading(true)
-    const response = await fetch("/api/generateMeme", {
-      method: "POST",
-      body: JSON.stringify({ image: selectedMeme.grayscaleImage, ...values }),
-      headers: { "Content-Type": "application/json" },
-    })
-    const data = await response.json()
-    setOutputImage(data.output[0])
-    setIsLoading(false)
+    try {
+      // Send request to start the generation
+      const initialResponse = await fetch("/api/generateMeme", {
+        method: "POST",
+        body: JSON.stringify({ image: selectedMeme.grayscaleImage, ...values }),
+        headers: { "Content-Type": "application/json" },
+      })
+      const initialData = await initialResponse.json()
+      await sleep(9000)
+
+      let status = "pending"
+      for (let i = 0; i < 20; i++) {
+        const response = await fetch("/api/getMeme", {
+          method: "POST",
+          body: JSON.stringify({ id: initialData.id }),
+          headers: { "Content-Type": "application/json" },
+        })
+        const data = await response.json()
+        status = data.output.status
+        console.log({ status })
+        if (status === "succeeded") {
+          setOutputImage(data.output.output[0])
+          break
+        }
+        if (status === "failed") {
+          throw new Error("Failed to generate meme. Sorry :(")
+        }
+        await sleep(2000)
+      }
+    } catch (error) {
+      alert(
+        "Failed to generate meme. Sorry :(. Please try again later, and feel free to reach out if this error persists."
+      )
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (

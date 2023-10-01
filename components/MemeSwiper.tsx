@@ -14,12 +14,6 @@ const memeImages = [
     grayscaleImage: "memes-grayscale/BuffDogevsCheems.png",
   },
   {
-    id: 2,
-    originalImage: "/memes/ChangeMyMind.png",
-    name: "Change My Mind",
-    grayscaleImage: "memes-grayscale/ChangeMyMind.png",
-  },
-  {
     id: 3,
     originalImage: "/memes/DistractedBoyfriend.png",
     name: "Distracted Boyfriend",
@@ -38,18 +32,6 @@ const memeImages = [
     grayscaleImage: "memes-grayscale/EpicHandshake.png",
   },
   {
-    id: 6,
-    originalImage: "/memes/LeftExit12OffRamp.png",
-    name: "Left Exit 12 Off Ramp",
-    grayscaleImage: "memes-grayscale/LeftExit12OffRamp.png",
-  },
-  {
-    id: 7,
-    originalImage: "/memes/RunningAwayBalloon.png",
-    name: "Running Away Balloon",
-    grayscaleImage: "memes-grayscale/RunningAwayBalloon.png",
-  },
-  {
     id: 8,
     originalImage: "/memes/SurprisedPikachu.png",
     name: "Surprised Pikachu",
@@ -60,12 +42,6 @@ const memeImages = [
     originalImage: "/memes/TwoButtons.png",
     name: "Two Buttons",
     grayscaleImage: "memes-grayscale/TwoButtons.png",
-  },
-  {
-    id: 10,
-    originalImage: "/memes/UnoDraw25Cards.png",
-    name: "Uno Draw 25 Cards",
-    grayscaleImage: "memes-grayscale/UnoDraw25Cards.png",
   },
   {
     id: 11,
