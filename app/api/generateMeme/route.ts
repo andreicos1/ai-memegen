@@ -1,8 +1,14 @@
+import { checkLimitReached } from "@/app/utils/ipInvocationsCheck"
 import { NextRequest, NextResponse } from "next/server"
 import Replicate from "replicate"
 
 export const POST = async (request: NextRequest) => {
   try {
+    const isLimitReached = await checkLimitReached(request)
+    if (isLimitReached) {
+      return NextResponse.json({ error: "Limit reached." }, { status: 429 })
+    }
+
     const replicate = new Replicate({
       auth: process.env.REPLICATE_TOKEN!,
     })
@@ -25,4 +31,4 @@ export const POST = async (request: NextRequest) => {
   }
 }
 
-export const runtime = "edge"
+// export const runtime = "edge"

@@ -13,6 +13,7 @@
     "buffer": "^6.0.3",
     "eslint-plugin-tailwindcss": "^3.13.0",
     "framer-motion": "^10.16.4",
+    "mongoose": "^7.5.3",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
