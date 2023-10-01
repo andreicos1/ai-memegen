@@ -25,6 +25,4 @@ export const POST = async (request: NextRequest) => {
   }
 }
 
-export const config = {
-  runtime: "edge",
-}
+export const runtime = "edge"
