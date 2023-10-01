@@ -1,4 +1,3 @@
-import { checkLimitReached } from "@/app/utils/ipInvocationsCheck"
 import { NextRequest, NextResponse } from "next/server"
 import Replicate from "replicate"
 
@@ -8,7 +7,7 @@ export const POST = async (request: NextRequest) => {
     // if (isLimitReached) {
     //   return NextResponse.json({ error: "Limit reached." }, { status: 429 })
     // }
-
+    console.log("CAN I SEE THIS CONSOLE LOG IN VERCEL??")
     const replicate = new Replicate({
       auth: process.env.REPLICATE_TOKEN!,
     })
