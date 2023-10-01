@@ -20,7 +20,7 @@ export const getIp = (request: NextRequest): string => {
 
 const getIpLimitStatus = async (ip: string) => {
   try {
-    const ipTrack = await Ip.findOne({ ipAddress: ip })
+    const ipTrack = await Ip.findOne({ ip })
     if (!ipTrack) return ""
 
     if (ipTrack.count >= MAX_DAILY_GENERATIONS) return HIT_MAX_DAILY_CODE
@@ -35,10 +35,11 @@ const getIpLimitStatus = async (ip: string) => {
 
 const saveIp = async (ip: string) => {
   try {
-    let ipTrack = await Ip.findOne({ ipAddress: ip })
-
-    if (!ipTrack) {
-      ipTrack = new Ip({ ipAddress: ip, count: 1 })
+    let ipTrack = await Ip.findOne({ ip })
+    if (ipTrack) {
+      ipTrack.count += 1
+    } else {
+      ipTrack = new Ip({ ip, count: 1 })
     }
     await ipTrack.save()
     return false
@@ -59,7 +60,7 @@ export const checkLimitReached = async (request: NextRequest) => {
     return false
   }
 
-  if (typeof ip !== "string" || !ip) {
+  if (typeof ip !== "string") {
     return true
   }
 
