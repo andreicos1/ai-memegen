@@ -15,6 +15,7 @@ export const POST = async (request: NextRequest) => {
     const { image, prompt } = await request.json()
     const origin = process.env.IS_PROD !== "false" ? request.headers.get("origin") : "https://ai-memegen.vercel.app"
 
+    console.log({ image, prompt, origin })
     const output = await replicate.run(MODEL, {
       input: {
         prompt,
@@ -26,6 +27,7 @@ export const POST = async (request: NextRequest) => {
     })
     return NextResponse.json({ output }, { status: 200 })
   } catch (error) {
+    console.log("Error in generateMeme:", error)
     return NextResponse.json({ error }, { status: 500 })
   }
 }
