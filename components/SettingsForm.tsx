@@ -19,7 +19,7 @@ function SettingsForm({ onSubmit }: Props) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm()
+  } = useForm({ defaultValues: { prompt: "An oil painting of a medieval English town" } })
 
   return (
     <form className="pt-8 lg:pt-14 max-w-2xl w-full px-6" onSubmit={handleSubmit(onSubmit)}>
