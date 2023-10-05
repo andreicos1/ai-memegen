@@ -4,8 +4,8 @@
 
 :root {
   --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 0, 0, 0;
+  --background-start-rgb: 32, 32, 32;
+  --background-end-rgb: 32, 32, 32;
   --primary-color: #9448bc;
   --swiper-pagination-bullet-inactive-color: #fff;
   --swiper-theme-color: var(--primary-color) !important;
@@ -102,4 +102,9 @@ body {
   0% {
     background-position: 500% 0;
   }
+}
+
+.upload-preview-wrapper img {
+  height: 100%;
+  object-fit: cover;
 }

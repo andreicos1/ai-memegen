@@ -42,7 +42,6 @@ function GenerateMemeSection() {
         })
         const data = await response.json()
         status = data.output.status
-        console.log({ status })
         if (status === "succeeded") {
           setOutputImage(data.output.output[0])
           break
