@@ -14,6 +14,12 @@ export const POST = async (request: NextRequest) => {
     const MODEL = "75d51a73fce3c00de31ed9ab4358c73e8fc0f627dc8ce975818e653317cb919b"
     const { image, prompt, guidanceScale } = await request.json()
 
+    console.log({
+      MODEL,
+      image,
+      prompt,
+      guidanceScale,
+    })
     const prediction = await replicate.predictions.create({
       version: MODEL,
       input: {

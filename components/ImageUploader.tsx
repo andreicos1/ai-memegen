@@ -7,6 +7,7 @@ import UploadIcon from "./icons/UploadIcon"
 
 interface Props {
   onUploadImage: (file: any) => void
+  onStartUpload: () => void
   initialImage?: string | null
 }
 
@@ -18,7 +19,11 @@ const MyUploadButton = asUploadButton(
 
 MyUploadButton.displayName = "MyUploadButton"
 
-export default function UploadProfilePicture({ onUploadImage, initialImage }: Props) {
+export default function UploadProfilePicture({ onUploadImage, onStartUpload, initialImage }: Props) {
+  useItemStartListener((item) => {
+    onStartUpload()
+  })
+
   useItemFinalizeListener((item) => {
     onUploadImage(item.uploadResponse?.data.url)
   })

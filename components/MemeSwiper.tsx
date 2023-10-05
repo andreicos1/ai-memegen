@@ -9,6 +9,7 @@ import "swiper/css/pagination"
 import ImageUploader from "./ImageUploader"
 import Uploady from "@rpldy/uploady"
 import UploadedImage from "./UploadedImage"
+import { Spinner } from "@nextui-org/react"
 
 const origin = process.env.NEXT_PUBLIC_VERCEL_URL || "https://ai-memegen.vercel.app"
 const memeImages = [
@@ -75,11 +76,20 @@ interface Props {
 
 function MemeSwiper({ onSelectMeme, selectedMeme }: Props) {
   const [imageFile, setImageFile] = useState("")
+  const [isLoadingImageUpload, setIsLoadingImageUpload] = useState(false)
   const uploadedImage = { id: 0, name: "Uploaded image", grayscaleImage: imageFile }
+
+  const onStartUpload = () => {
+    setIsLoadingImageUpload(true)
+  }
+
   const onUploadImage = (fileUrl: string) => {
     setImageFile(() => fileUrl)
     onSelectMeme(uploadedImage)
+    setIsLoadingImageUpload(false)
   }
+
+  const showUploadImageSlide = isLoadingImageUpload || imageFile
 
   return (
     <div className="max-w-screen-2xl w-full p-6">
@@ -106,15 +116,20 @@ function MemeSwiper({ onSelectMeme, selectedMeme }: Props) {
       >
         <SwiperSlide>
           <Uploady multiple={false} noPortal destination={{ url: "/api/uploadImage" }}>
-            <ImageUploader onUploadImage={onUploadImage} />
+            <ImageUploader onUploadImage={onUploadImage} onStartUpload={onStartUpload} />
           </Uploady>
         </SwiperSlide>
-        {imageFile && (
+        {true && (
           <SwiperSlide onClick={() => onSelectMeme(uploadedImage)} className="cursor-pointer">
             {selectedMeme?.id === 0 && <p className="absolute -top-[1.75rem]">Uploaded image</p>}
-            <UploadedImage imageFile={imageFile} />
+            {isLoadingImageUpload ? (
+              <Spinner className="mx-auto" label="Uploading..." color="primary" />
+            ) : (
+              <UploadedImage imageFile={imageFile} />
+            )}
           </SwiperSlide>
         )}
+        <Spinner className="mx-auto" />
         {memeImages.map((memeImage) => {
           return (
             <SwiperSlide
