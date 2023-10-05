@@ -14,7 +14,7 @@ export const POST = async (request: NextRequest, response: NextResponse) => {
     const arrayBuffer = await imageFile.arrayBuffer()
     const image = await Jimp.read(arrayBuffer as any)
 
-    image.grayscale().contrast(0.6)
+    image.grayscale().contrast(0.4)
     const imageBuffer = await image.getBufferAsync(Jimp.MIME_JPEG)
     const blob = await put("my-image.jpg", imageBuffer, { access: "public" })
 

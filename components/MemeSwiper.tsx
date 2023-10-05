@@ -84,8 +84,8 @@ function MemeSwiper({ onSelectMeme, selectedMeme }: Props) {
   }
 
   const onUploadImage = (fileUrl: string) => {
-    setImageFile(() => fileUrl)
-    onSelectMeme(uploadedImage)
+    setImageFile(fileUrl)
+    onSelectMeme({ ...uploadedImage, grayscaleImage: fileUrl })
     setIsLoadingImageUpload(false)
   }
 
