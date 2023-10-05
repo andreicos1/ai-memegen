@@ -119,7 +119,7 @@ function MemeSwiper({ onSelectMeme, selectedMeme }: Props) {
             <ImageUploader onUploadImage={onUploadImage} onStartUpload={onStartUpload} />
           </Uploady>
         </SwiperSlide>
-        {true && (
+        {showUploadImageSlide && (
           <SwiperSlide onClick={() => onSelectMeme(uploadedImage)} className="cursor-pointer">
             {selectedMeme?.id === 0 && <p className="absolute -top-[1.75rem]">Uploaded image</p>}
             {isLoadingImageUpload ? (
