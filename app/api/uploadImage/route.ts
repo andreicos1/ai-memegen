@@ -38,19 +38,35 @@ export const POST = async (request: NextRequest, response: NextResponse) => {
     const bucket = storage.bucket("ai-memegen")
     const file = bucket.file(fileName)
 
-    const fileUrl = await new Promise((resolve, reject) => {
-      file.save(imageBuffer, async (err) => {
-        if (!err) {
-          resolve(file.publicUrl())
-        } else {
-          console.log("error " + err)
-          reject(err)
-        }
+    const uploadFromMemory = async () => {
+      const [response] = await file.generateSignedPostPolicyV4({
+        expires: Date.now() + 1 * 60 * 1000, //  1 minute,
+        fields: { "x-goog-meta-test": "data" },
       })
-    })
+      const { url, fields } = response
+      const formData = new FormData()
 
-    return NextResponse.json({ url: fileUrl }, { status: response.status })
+      Object.entries(fields).forEach(([key, value]) => {
+        formData.append(key, value)
+      })
+      formData.append("file", new Blob([imageBuffer]))
+      await fetch(url, {
+        method: "POST",
+        body: formData,
+      })
+    }
+
+    try {
+      await uploadFromMemory()
+    } catch (error) {
+      console.log(error)
+    }
+
+    return NextResponse.json(
+      { url: `https://storage.googleapis.com/ai-memegen/${fileName}` },
+      { status: response.status }
+    )
   } catch (error) {
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 })
+    return NextResponse.json({ error }, { status: 500 })
   }
 }
