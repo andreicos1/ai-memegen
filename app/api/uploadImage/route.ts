@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import Jimp from "jimp"
-import { put } from "@vercel/blob"
+import { Storage } from "@google-cloud/storage"
 
 export const POST = async (request: NextRequest, response: NextResponse) => {
   try {
@@ -16,11 +16,27 @@ export const POST = async (request: NextRequest, response: NextResponse) => {
 
     image.grayscale().contrast(0.4)
     const imageBuffer = await image.getBufferAsync(Jimp.MIME_JPEG)
-    const blob = await put("my-image.jpg", imageBuffer, { access: "public" })
+    const storage = new Storage({
+      projectId: "memegen-ai",
+      keyFilename: "./google-cloud-storage-key.json",
+    })
 
-    return NextResponse.json({ url: blob.url }, { status: response.status })
+    const bucket = storage.bucket("ai-memegen")
+    const file = bucket.file("uploaded-images/plm.jpg")
+
+    const fileUrl = await new Promise((resolve, reject) => {
+      file.save(imageBuffer, async (err) => {
+        if (!err) {
+          resolve(file.publicUrl())
+        } else {
+          console.log("error " + err)
+          reject(err)
+        }
+      })
+    })
+
+    return NextResponse.json({ url: fileUrl }, { status: response.status })
   } catch (error) {
-    console.log({ error })
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 })
   }
 }
