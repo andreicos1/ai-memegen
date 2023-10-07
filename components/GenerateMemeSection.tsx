@@ -31,9 +31,9 @@ function GenerateMemeSection() {
         headers: { "Content-Type": "application/json" },
       })
       const initialData = await initialResponse.json()
-      await sleep(9000)
+      await sleep(6000)
 
-      let status = "pending"
+      let status = "IN_QUEUE"
       for (let i = 0; i < 20; i++) {
         const response = await fetch("/api/getMeme", {
           method: "POST",
@@ -42,11 +42,11 @@ function GenerateMemeSection() {
         })
         const data = await response.json()
         status = data.output.status
-        if (status === "succeeded") {
-          setOutputImage(data.output.output[0])
+        if (!status) {
+          setOutputImage(data.output.image.url)
           break
         }
-        if (status === "failed") {
+        if (status === "FAILED") {
           throw new Error("Failed to generate meme. Sorry :(")
         }
         await sleep(2000)

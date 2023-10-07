@@ -1,13 +1,18 @@
 import { NextRequest, NextResponse } from "next/server"
-import Replicate from "replicate"
 
 export const POST = async (request: NextRequest) => {
   try {
-    const replicate = new Replicate({
-      auth: process.env.REPLICATE_TOKEN!,
-    })
     const { id } = await request.json()
-    const prediction = await replicate.predictions.get(id)
+    const predictionResponse = await fetch(
+      `https://54285744-illusion-diffusion.gateway.alpha.fal.ai/fal/queue/${id}/get`,
+      {
+        headers: {
+          Authorization: `Key ${process.env.FALAI_TOKEN}`,
+        },
+      }
+    )
+
+    const prediction = await predictionResponse.json()
 
     return NextResponse.json({ output: prediction }, { status: 200 })
   } catch (error) {

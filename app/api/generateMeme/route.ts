@@ -1,6 +1,5 @@
 import { checkLimitReached } from "@/app/utils/ipInvocationsCheck"
 import { NextRequest, NextResponse } from "next/server"
-import Replicate from "replicate"
 
 export const POST = async (request: NextRequest) => {
   try {
@@ -8,23 +7,28 @@ export const POST = async (request: NextRequest) => {
     if (isLimitReached) {
       return NextResponse.json({ error: "Limit reached." }, { status: 429 })
     }
-    const replicate = new Replicate({
-      auth: process.env.REPLICATE_TOKEN!,
-    })
-    const MODEL = "75d51a73fce3c00de31ed9ab4358c73e8fc0f627dc8ce975818e653317cb919b"
+
+    const illusionDiffusionUrl = "https://54285744-illusion-diffusion.gateway.alpha.fal.ai/fal/queue/submit"
     const { image, prompt, guidanceScale } = await request.json()
 
-    const prediction = await replicate.predictions.create({
-      version: MODEL,
-      input: {
+    const predictionResponse = await fetch(illusionDiffusionUrl, {
+      method: "POST",
+      body: JSON.stringify({
         prompt,
-        qr_code_content: "",
-        image,
+        negative_prompt:
+          "((frame)), ((framed)), ((framed painting)), signature, signed, bad artist, ugly, nsfw, boring, distorted, poor quality, low quality, low resolution",
+        image_url: image,
         num_inference_steps: 50,
         controlnet_conditioning_scale: parseFloat(guidanceScale),
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Key ${process.env.FALAI_TOKEN}`,
       },
     })
-    return NextResponse.json({ id: prediction.id }, { status: 200 })
+    const prediction = await predictionResponse.json()
+
+    return NextResponse.json({ id: prediction.request_id }, { status: 200 })
   } catch (error) {
     console.log("Error in generateMeme:", error)
     return NextResponse.json({ error }, { status: 500 })
