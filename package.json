@@ -25,6 +25,7 @@
     "react": "latest",
     "react-dom": "latest",
     "react-hook-form": "^7.46.2",
+    "request": "^2.88.2",
     "swiper": "^10.3.1"
   },
   "devDependencies": {

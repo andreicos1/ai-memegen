@@ -16,13 +16,27 @@ export const POST = async (request: NextRequest, response: NextResponse) => {
 
     image.grayscale().contrast(0.4)
     const imageBuffer = await image.getBufferAsync(Jimp.MIME_JPEG)
+
     const storage = new Storage({
       projectId: "memegen-ai",
-      keyFilename: "./google-cloud-storage-key.json",
+      credentials: {
+        type: "service_account",
+        project_id: "ai-memegen",
+        private_key_id: process.env.GCS_PRIVATE_KEY_ID,
+        private_key: process.env.GCS_PRIVATE_KEY!.replace(/\\n/g, "\n"),
+        client_email: process.env.GCS_CLIENT_EMAIL,
+        client_id: process.env.GCS_CLIENT_ID,
+        auth_uri: "https://accounts.google.com/o/oauth2/auth",
+        token_uri: "https://oauth2.googleapis.com/token",
+        auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
+        client_x509_cert_url: process.env.GCS_CLIENT_CERT_URL,
+        universe_domain: "googleapis.com",
+      } as any,
     })
 
+    const fileName = `uploaded-images/${Math.random().toString(36).substring(2, 9)}-${Date.now()}.jpg`
     const bucket = storage.bucket("ai-memegen")
-    const file = bucket.file("uploaded-images/plm.jpg")
+    const file = bucket.file(fileName)
 
     const fileUrl = await new Promise((resolve, reject) => {
       file.save(imageBuffer, async (err) => {
