@@ -11,7 +11,7 @@ import Uploady from "@rpldy/uploady"
 import UploadedImage from "./UploadedImage"
 import { Spinner } from "@nextui-org/react"
 
-const origin = process.env.NEXT_PUBLIC_VERCEL_URL || "https://ai-memegen.vercel.app"
+const origin = process.env.NEXT_PUBLIC_URL || "https://ai-memegen.vercel.app"
 const memeImages = [
   {
     id: 1,
